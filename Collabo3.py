@@ -10,6 +10,4 @@ year_input = int(input("Enter the year group of the student (9-12): "))
 
 grades_input = {}
 subjects = ['Math', 'Science', 'English']
-fghjkjhgfdghjkl
-
-
+dsda
