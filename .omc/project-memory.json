@@ -1,6 +1,6 @@
 {
   "version": "1.0.0",
-  "lastScanned": 1781637159368,
+  "lastScanned": 1781809385378,
   "projectRoot": "/Users/yajjus_0578/내 창작 폴더/CS_class_hague/CS team project 2",
   "techStack": {
     "languages": [],
@@ -32,6 +32,19 @@
   },
   "customNotes": [],
   "directoryMap": {},
-  "hotPaths": [],
+  "hotPaths": [
+    {
+      "path": "Collabo3.py",
+      "accessCount": 3,
+      "lastAccessed": 1781640474405,
+      "type": "file"
+    },
+    {
+      "path": "README.md",
+      "accessCount": 1,
+      "lastAccessed": 1781640400362,
+      "type": "file"
+    }
+  ],
   "userDirectives": []
 }
