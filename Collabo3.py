@@ -30,7 +30,7 @@ class Student:
         grade_dict[self.name]["Year Average"] = round(self.yearavg(), 2)
 
 
-# --- Student data (4 students minimum as required) ---
+# Student data (4 students minimum as required)
 students = [
     Student("Allen",  10, {"Math": [72, 68, 75], "Science": [80, 85, 78], "English": [60, 65, 70]}),
     Student("Junsu Yang",    11, {"Math": [45, 50, 52], "Science": [88, 92, 85], "English": [55, 60, 58]}),
@@ -39,7 +39,7 @@ students = [
     Student("Emma Wilson",  10, {"Math": [75, 80, 78], "Science": [65, 70, 68], "English": [82, 85, 80]}),
 ]
 
-# --- Build the school-wide grades dictionary ---
+# Build the school-wide grades dictionary
 all_grades = {}
 for student in students:
     student.writegrades(all_grades)
@@ -52,7 +52,7 @@ for student in sorted(students, key=lambda s: s.name):
     print(f"  {'Year':10} Avg: {student.yearavg():.0f}")
     student.failcheck()
 
-#Highest overall average (handles ties)
+#Highest overall average 
 highest_avg = max(info["Year Average"] for info in all_grades.values())
 top_students = [name for name, info in all_grades.items() if info["Year Average"] == highest_avg]
 
@@ -61,7 +61,7 @@ if len(top_students) == 1:
 else:
     print(f"Tied for highest year average ({highest_avg:.0f}): {', '.join(top_students)}")
 
-#Hardest subject — lowest average across all students (handles ties)
+#Hardest subject — lowest average across all students 
 subjects = ["Math", "Science", "English"]
 subject_class_avgs = {
     subject: sum(all_grades[name][subject] for name in all_grades) / len(all_grades)
