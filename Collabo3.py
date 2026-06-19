@@ -48,8 +48,8 @@ for student in sorted(students, key=lambda s: s.name):
     print(f"\nName:       {student.name}")
     print(f"Year Group: {student.year_group}")
     for subject in ["Math", "Science", "English"]:
-        print(f"  {subject:10} Avg: {student.subjectavg(subject):.2f}")
-    print(f"  {'Year':10} Avg: {student.yearavg():.2f}")
+        print(f"  {subject:10} Avg: {student.subjectavg(subject):.0f}")
+    print(f"  {'Year':10} Avg: {student.yearavg():.0f}")
     student.failcheck()
 
 #Highest overall average (handles ties)
@@ -57,9 +57,9 @@ highest_avg = max(info["Year Average"] for info in all_grades.values())
 top_students = [name for name, info in all_grades.items() if info["Year Average"] == highest_avg]
 
 if len(top_students) == 1:
-    print(f"Highest year average: {top_students[0]} ({highest_avg:.2f})")
+    print(f"Highest year average: {top_students[0]} ({highest_avg:.0f})")
 else:
-    print(f"Tied for highest year average ({highest_avg:.2f}): {', '.join(top_students)}")
+    print(f"Tied for highest year average ({highest_avg:.0f}): {', '.join(top_students)}")
 
 #Hardest subject — lowest average across all students (handles ties)
 subjects = ["Math", "Science", "English"]
@@ -72,7 +72,7 @@ lowest_avg = min(subject_class_avgs.values())
 hardest_subjects = [s for s, avg in subject_class_avgs.items() if avg == lowest_avg]
 
 if len(hardest_subjects) == 1:
-    print(f"Hardest subject: {hardest_subjects[0]} (class avg: {lowest_avg:.2f})")
+    print(f"Hardest subject: {hardest_subjects[0]} (class avg: {lowest_avg:.0f})")
 else:
-    print(f"Tied for hardest subject (class avg: {lowest_avg:.2f}): {', '.join(hardest_subjects)}")
+    print(f"Tied for hardest subject (class avg: {lowest_avg:.0f}): {', '.join(hardest_subjects)}")
 
