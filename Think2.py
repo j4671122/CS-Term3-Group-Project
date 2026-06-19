@@ -1,32 +1,30 @@
 # J.Yang, V.Bui — CS Term 3 Group Project
 
 class Student:
-    
+
     def __init__(self, name, year_group, grades):
         self.name = name
         self.year_group = year_group
         self.grades = grades 
 
     def subjectavg(self, subject_name):
-        """Returns the average score across all terms for the given subject."""
         scores = self.grades[subject_name]
         return sum(scores) / len(scores)
 
     def yearavg(self):
-        """Returns the overall average across all subjects for the year."""
-        subject_averages = [self.subjectavg(subject) for subject in self.grades]
+        subject_averages = []
+        for subject in self.grades:
+            subject_averages.append(self.subjectavg(subject))
         return sum(subject_averages) / len(subject_averages)
 
     def failcheck(self):
-        """Prints a warning if the student's average in any subject is below 55."""
-        failed_subjects = [subject for subject in self.grades if self.subjectavg(subject) < 55]
-        if failed_subjects:
-            print(f"  !! {self.name} failed: {', '.join(failed_subjects)}")
-
-    def writegrades(self, grade_dict):
-        """Writes this student's subject averages and year average into the provided dictionary."""
-        grade_dict[self.name] = {subject: round(self.subjectavg(subject), 2) for subject in self.grades}
-        grade_dict[self.name]["Year Average"] = round(self.yearavg(), 2)
+        failed_subjects = []
+        for subject in self.grades:
+            if self.subjectavg(subject) < 55:
+                failed_subjects.append(subject)
+                
+        if len(failed_subjects) > 0:
+            print(f"  !! {self.name} failed: {failed_subjects}")
 
 
 # Student data (4 students minimum as required)
@@ -38,17 +36,21 @@ students = [
     Student("Emma Wilson",  10, {"Math": [75, 80, 78], "Science": [65, 70, 68], "English": [82, 85, 80]}),
 ]
 
-# Build the school-wide grades dictionary
 all_grades = {}
 for student in students:
-    student.writegrades(all_grades)
+    student_info = {}
+    for subject in student.grades:
+        student_info[subject] = round(student.subjectavg(subject), 2)
+    student_info["Year Average"] = round(student.yearavg(), 2)
+    
+    all_grades[student.name] = student_info
 
 for student in sorted(students, key=lambda s: s.name):
     print(f"\nName: {student.name}")
     print(f"Year Group: {student.year_group}")
     for subject in ["Math", "Science", "English"]:
-        print(f"  {subject:10} Avg: {student.subjectavg(subject):.0f}")
-    print(f"  {'Year':10} Avg: {student.yearavg():.0f}")
+        print(f"  {subject}: {student.subjectavg(subject):.0f}")
+    print(f"  Year\tAvg: {student.yearavg():.0f}")
     student.failcheck()
 
 # Highest overall average
@@ -62,19 +64,21 @@ for name, info in all_grades.items():
 
 print(f"Highest year average: {top_student} ({highest_avg:.0f})")
 
-# Hardest subject — lowest average across all students 
+# Hardest subject 
 subjects = ["Math", "Science", "English"]
-subject_class_avgs = {
-    subject: sum(all_grades[name][subject] for name in all_grades) / len(all_grades)
-    for subject in subjects
-}
+subject_class_avgs = {}
+for subject in subjects:
+    total_score = 0
+    for name in all_grades:
+        total_score += all_grades[name][subject]
+    subject_class_avgs[subject] = total_score / len(all_grades)
 
-lowest_avg = min(subject_class_avgs.values())
-hardest_subjects = [s for s, avg in subject_class_avgs.items() if avg == lowest_avg]
+lowest_avg = 999
+hardest_subject = ""
 
-if len(hardest_subjects) == 1:
-    print(f"Hardest subject: {hardest_subjects[0]} (class avg: {lowest_avg:.0f})")
-else:
-    print(f"Tied for hardest subject (class avg: {lowest_avg:.0f}): {', '.join(hardest_subjects)}")
+for subject, avg in subject_class_avgs.items():
+    if avg < lowest_avg:
+        lowest_avg = avg
+        hardest_subject = subject
 
-
+print(f"Hardest subject: {hardest_subject} (class avg: {lowest_avg:.0f})")

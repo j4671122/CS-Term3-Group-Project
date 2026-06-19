@@ -6,7 +6,7 @@ class Student:
     def __init__(self, name, year_group, grades):
         self.name = name
         self.year_group = year_group
-        self.grades = grades  # e.g) {'Math': [55, 60, 77], 'Science': [70, 25, 90], 'English': [59, 70, 82]}
+        self.grades = grades  
 
     def subjectavg(self, subject_name):
         """Returns the average score across all terms for the given subject."""
@@ -33,8 +33,8 @@ class Student:
 # --- Student data (4 students minimum as required) ---
 students = [
     Student("Allen",  10, {"Math": [72, 68, 75], "Science": [80, 85, 78], "English": [60, 65, 70]}),
-    Student("Vinh",    11, {"Math": [45, 50, 52], "Science": [88, 92, 85], "English": [55, 60, 58]}),
-    Student("Junsu Yang",   9, {"Math": [90, 88, 92], "Science": [78, 82, 80], "English": [85, 90, 88]}),
+    Student("Junsu Yang",    11, {"Math": [45, 50, 52], "Science": [88, 92, 85], "English": [55, 60, 58]}),
+    Student("Vinh",   9, {"Math": [90, 88, 92], "Science": [78, 82, 80], "English": [85, 90, 88]}),
     Student("David Lee",    12, {"Math": [60, 55, 58], "Science": [40, 45, 48], "English": [70, 72, 68]}),
     Student("Emma Wilson",  10, {"Math": [75, 80, 78], "Science": [65, 70, 68], "English": [82, 85, 80]}),
 ]
@@ -44,11 +44,6 @@ all_grades = {}
 for student in students:
     student.writegrades(all_grades)
 
-# --- Display all students in alphabetical order ---
-print("=" * 52)
-print("           STUDENT GRADE REPORT")
-print("=" * 52)
-
 for student in sorted(students, key=lambda s: s.name):
     print(f"\nName:       {student.name}")
     print(f"Year Group: {student.year_group}")
@@ -57,8 +52,7 @@ for student in sorted(students, key=lambda s: s.name):
     print(f"  {'Year':10} Avg: {student.yearavg():.2f}")
     student.failcheck()
 
-# --- Highest overall average (handles ties) ---
-print("\n" + "=" * 52)
+#Highest overall average (handles ties)
 highest_avg = max(info["Year Average"] for info in all_grades.values())
 top_students = [name for name, info in all_grades.items() if info["Year Average"] == highest_avg]
 
@@ -67,8 +61,7 @@ if len(top_students) == 1:
 else:
     print(f"Tied for highest year average ({highest_avg:.2f}): {', '.join(top_students)}")
 
-# --- Hardest subject — lowest average across all students (handles ties) ---
-print("=" * 52)
+#Hardest subject — lowest average across all students (handles ties)
 subjects = ["Math", "Science", "English"]
 subject_class_avgs = {
     subject: sum(all_grades[name][subject] for name in all_grades) / len(all_grades)
@@ -83,4 +76,3 @@ if len(hardest_subjects) == 1:
 else:
     print(f"Tied for hardest subject (class avg: {lowest_avg:.2f}): {', '.join(hardest_subjects)}")
 
-print("=" * 52)
